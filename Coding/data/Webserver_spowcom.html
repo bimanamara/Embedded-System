@@ -1,0 +1,143 @@
+<!DOCTYPE HTML><html>
+<!-- Rui Santos - Complete project details at https://RandomNerdTutorials.com
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software. -->
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <title>SPOWCOM V1.0 WebServer</title>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('.click').click(function(){
+        $('.popup_box').css("display", "block");
+      });
+      $('.btns').click(function(){
+        $('.popup_box').css("display", "none");
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <h1>Proyek Akhir <br/> Sistem Benam 2</h1>
+  <center><h2 class="italic">IOT-based Smart Power Consumption Monitoring System using ESP32 and PZEM004T Sensor</h2></center>
+  <hr><br/><br/><br/><br/>
+
+  <h3> Kelompok 24  : </h3>
+  <h3><ol>
+    <li>Bima Adinata Namara (2006574566)</li>
+    <li>Muhammad Brian Na'iman Hadi (2006574534)</li>
+  </ol></h3><br/>
+
+  <p>
+    <a href="#" class="click">Detail Proyek</a>
+    <div class="popup_box">
+      <i class=="fas fa-exclamation"></i>
+      <p style="font-family: Lato; font-size: 25px;">
+        Instrumen ini berfungsi untuk memonitoring parameter parameter listrik (arus, tegangan, daya, dan energi 
+        listrik terpakai) berbasis IoT yang akan membantu penghematan penggunaan listrik. Instrumen ini memiliki 
+        relay yang berfungsi untuk pemutus arus ketika pemakaian daya / konsumsi energi melebihi batas normal. 
+        Kemudian, terdapat 3 aktuator, yaitu LCD 16 X 2 untuk menampilkan parameter terukur, LED untuk representasi
+        keadaan instrumen, dan Buzzer sebagai alarm.
+      </p>
+      <div class="btns">
+        <a href="#" class="btn1">Kembali</a>
+      </div>
+    </div>
+  </p>
+
+  <p class="energi">
+    <i class="fas fa-bolt" style = "color:#FFC300"></i>
+    <span style="font-family: Lato; font-size: 25pt;">Energi Terkonsumsi  : </span>
+    <span id="energi">%ENERGI%</span>
+    <span style="font-family: Lato; font-size: 25pt;">kWh</span>
+  </p>
+  
+
+  <div id="clock">
+    <div id="time">
+        <img src="timer.png" alt="" srcset="">
+        <div>
+            <p id="hours">00</p>
+            <p style="font-family: Lato; font-size: 25pt;">Hours</p>
+        </div>
+        <div>
+            <p>:</p>
+        </div>
+        <div>
+            <p id="minutes">00</p>
+            <p style="font-family: Lato; font-size: 25pt;">Minutes</p>
+        </div>
+        <div>
+            <p>:</p>
+        </div>
+        <div>
+            <p id="seconds">00</p>
+            <p style="font-family: Lato; font-size: 25pt;">Seconds</p>
+        </div>
+    </div>
+  </div>
+
+  <div id="alert-box">
+    <div class="title-alert">
+        <img src="image.png" alt="" srcset="">
+        <h3>
+            Energi yang digunakan telah mencapai 0.5 kWh!
+        </h3>
+    </div>
+    <div class="btn-alert" >
+        <button type="button" onclick="closeForm()">
+            Close
+        </button>
+    </div>
+  </div>
+
+  
+  <p class="parameter">
+		<span style="font-family: Lato; font-size: 20pt;">Penggunaan Arus : </span> <br/><br/><br/>
+		<span style ="font-family: Lato; font-size: 20pt;" id="arus">%ARUS%</span>
+		<span style="font-family: Lato; font-size: 20pt;">A</span>
+	</p>
+  <div id="chart-arus" class="container"></div>
+  
+ 
+  <p class="parameter">
+		<span style="font-family: Lato; font-size: 20pt;">Penggunaan Tegangan : </span> <br/><br/><br/>
+		<span style ="font-family: Lato; font-size: 20pt;" id="tegangan">%TEGANGAN%</span>
+		<span style="font-family: Lato; font-size: 20pt;">V</span>
+	</p>
+  
+  <div id="chart-tegangan" class="container"></div>
+  
+  
+  <p class="parameter">
+		<span style="font-family: Lato; font-size: 20pt;">Penggunaan Daya : </span> <br/><br/><br/>
+		<span style ="font-family: Lato; font-size: 20pt;" id="daya">%DAYA%</span>
+		<span style="font-family: Lato; font-size: 20pt;">W</span>
+	</p>
+  
+  <div id="chart-daya" class="container"></div>
+
+
+  <p class="parameter">
+		<span style="font-family: Lato; font-size: 20pt;">Penggunaan Energi : </span> <br/><br/><br/>
+		<span style ="font-family: Lato; font-size: 20pt;"  id="energi1">%ENERGI%</span>
+		<span style="font-family: Lato; font-size: 20pt;">kWh</span>
+	</p>
+ 
+  <div id="chart-energi" class="container"></div>
+
+  </br>
+  <script src="chart.js"></script>
+</body>
+</html>
